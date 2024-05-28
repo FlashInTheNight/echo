@@ -1,0 +1,76 @@
+"use client"
+
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Button } from "@/components/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/form"
+import { Textarea } from "@/components/textarea";
+import { useCreatePostMutation, useLazyGetAllPostsQuery } from "@/lib/servicies/postsApi"
+
+const FormSchema = z.object({
+  post: z
+    .string()
+    .min(10, {
+      message: "Post must be at least 10 characters.",
+    })
+    .max(160, {
+      message: "Post must not be longer than 30 characters.",
+    }),
+})
+
+export function CreatePostForm() {
+  const [createPost] = useCreatePostMutation()
+  const [triggerGetAllPosts] = useLazyGetAllPostsQuery()
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+  })
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await createPost({content: data.post }).unwrap()
+      // setValue('post', '')
+      await triggerGetAllPosts().unwrap()
+    } catch(error) {
+      console.log('create post error', error)
+    }
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="post"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Начните писать свою хуиту уже сегодня</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us a little bit about yourself"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                You can <span>@mention</span> other users and organizations.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button className="w-full" type="submit">Submit</Button>
+      </form>
+    </Form>
+  )
+}
