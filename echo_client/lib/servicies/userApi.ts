@@ -34,7 +34,7 @@ export const userApi = api.injectEndpoints({
     }),
     updateUser: builder.mutation<User, { userData: FormData; id: string }>({
       query: ({ userData, id }) => ({
-        url: `/users/${id}`,
+        url: `/user/follower/${id}`,
         method: "PUT",
         body: userData,
       }),

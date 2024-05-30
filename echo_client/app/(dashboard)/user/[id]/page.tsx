@@ -24,14 +24,8 @@ import {
   useFollowUserMutation,
   useUnfollowUserMutation,
 } from "@/lib/servicies/followApi";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/dialog";
+import { EditProfile } from "@/features/user/ui/EditProfile";
+
 
 export default function Page({ params }: { params: { id: string } }) {
   const { data } = useGetUserByIdQuery(params.id ?? "");
@@ -97,25 +91,10 @@ export default function Page({ params }: { params: { id: string } }) {
               {isFollowing ? "Отписаться" : "Подписаться"}
             </Button>
           ) : (
-            <Button>Редактировать</Button>
+            <EditProfile />
           )}
         </CardContent>
       </Card>
-      <Dialog>
-        <DialogTrigger>
-          <Button variant="outline">Edit Profile</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-
       <ProfileBlock
         email={email}
         location={location}

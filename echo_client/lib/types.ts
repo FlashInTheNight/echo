@@ -3,8 +3,8 @@ export type User = {
   email: string
   password: string
   name?: string
-  avatarUrl?: string
-  dateOfBirth?: Date
+  avatarUrl?: string | File
+  dateOfBirth?: Date | string
   createdAt: Date
   updatedAt: Date
   bio?: string

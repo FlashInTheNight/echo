@@ -14,7 +14,9 @@ type Props = {
   label: string;
   name: string;
   description?: string;
-  placeholder: string;
+  placeholder?: string;
+  type?: string;
+  onChange?: (arg0: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const FormInput = ({
@@ -22,22 +24,46 @@ export const FormInput = ({
   label,
   name,
   description,
-  placeholder,
+  placeholder = '',
+  type = "text",
+  onChange,
 }: Props) => {
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>{label}</FormLabel>
-          <FormControl>
-            <Input placeholder={placeholder} {...field} />
-          </FormControl>
-          {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field }) => {
+        return (
+          <FormItem>
+            <FormLabel>{label}</FormLabel>
+            <FormControl>
+              <Input
+                placeholder={placeholder}
+                type={type}
+                {...field}
+              />
+            </FormControl>
+            {description && <FormDescription>{description}</FormDescription>}
+            <FormMessage />
+          </FormItem>
+        );
+      }}
     />
   );
+  // return (
+  //   <FormField
+  //     control={control}
+  //     name={name}
+  //     render={({ field }) => (
+  //       <FormItem>
+  //         <FormLabel>{label}</FormLabel>
+  //         <FormControl>
+  //           <Input placeholder={placeholder} type={type} {...field} />
+  //         </FormControl>
+  //         {description && <FormDescription>{description}</FormDescription>}
+  //         <FormMessage />
+  //       </FormItem>
+  //     )}
+  //   />
+  // );
 };
