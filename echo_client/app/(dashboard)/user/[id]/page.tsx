@@ -60,7 +60,7 @@ export default function Page({ params }: { params: { id: string } }) {
     try {
       if (params.id) {
         isFollowing
-          ? await unfolowUser(params.id).unwrap()
+          ? await unfolowUser({ followingId: params.id }).unwrap()
           : await followUser({ followingId: params.id }).unwrap();
 
         await triggerGetUserByIdQuery(params.id);

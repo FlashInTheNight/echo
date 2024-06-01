@@ -20,7 +20,7 @@ export const UserHeader = ({
 }: Props) => {
   return (
     <div className={cn("flex items-center space-x-4", className)}>
-      <Link href={`/users/${authorId}`}>
+      <Link href={`/user/${authorId}`}>
         <Avatar>
           <AvatarImage
             src={`${process.env.NEXT_PUBLIC_BASE_URL}${avatarUrl}`}

@@ -147,7 +147,7 @@ export function PostCard({
               likesCount {likesCount}
             </Button>
             
-            <Link href={`/posts/${id}`}>
+            <Link href={`/current-post/${id}`}>
               <Button variant="default">
                 commentsCount {commentsCount}
               </Button>
