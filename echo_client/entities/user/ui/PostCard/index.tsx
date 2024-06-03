@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/card";
-import { useLikePostMutation } from "@/lib/servicies/likesApi";
+import { useLikePostMutation, useUnlikePostMutation } from "@/lib/servicies/likesApi";
 import {
   useDeletePostMutation,
   useLazyGetAllPostsQuery,
@@ -23,6 +23,14 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserHeader } from "@/components/userHeader";
 import { Carter_One } from "next/font/google";
+import {
+  Heart,
+  HeartOff,
+  LoaderCircle,
+  MessageCircleMore,
+  Trash2,
+} from "lucide-react";
+import { MetaInfo } from "../metaInfo";
 
 type CardProps = React.ComponentProps<typeof Card>;
 type Props = {
@@ -57,7 +65,7 @@ export function PostCard({
   ...props
 }: PostCardProps) {
   const [likePost] = useLikePostMutation();
-  const [unlikePost] = useLikePostMutation();
+  const [unlikePost] = useUnlikePostMutation();
   const [triggerGetAllPosts] = useLazyGetAllPostsQuery();
   const [triggerGetPostById] = useLazyGetPostByIdQuery();
   const [deletePost, deletePostStatus] = useDeletePostMutation();
@@ -84,6 +92,7 @@ export function PostCard({
 
   const handleClick = async () => {
     try {
+      console.log('likedByUser', likedByUser)
       likedByUser
         ? await unlikePost({ postId: id }).unwrap()
         : await likePost({ postId: id }).unwrap();
@@ -121,36 +130,40 @@ export function PostCard({
   };
 
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader>
+    <Card className={cn("", className)} {...props}>
+      <CardHeader className="flex flex-row justify-between">
         <UserHeader avatarUrl={avatarUrl} name={name} authorId={authorId} />
         {authorId === currentUser?.id && (
           <div className="cursor-pointer" onClick={handleDelete}>
             {deletePostStatus.isLoading || deleteCommentStatus.isLoading ? (
-              <p>Загрузка...</p>
+              <LoaderCircle className="animate-spin" />
             ) : (
-              <p>Удалить</p>
+              <Button className="px-2.5" variant="outline">
+                <Trash2 />
+              </Button>
             )}
           </div>
         )}
       </CardHeader>
       <CardContent className="grid gap-4">
-        <p>{content}</p>
+        <p className="text-default-500">{content}</p>
       </CardContent>
       <CardFooter>
         {cardFor !== "comment" && (
-          <div>
-            <Button
-              onClick={handleClick}
-              variant={likedByUser ? "outline" : "default"}
-            >
-              likesCount {likesCount}
-            </Button>
-            
+          <div className="flex flex-row gap-2">
+            <div onClick={handleClick}>
+              <MetaInfo
+                count={likesCount}
+                Icon={() =>
+                  likedByUser ? <HeartOff color="#dc0404" /> : <Heart />
+                }
+              />
+            </div>
             <Link href={`/current-post/${id}`}>
-              <Button variant="default">
-                commentsCount {commentsCount}
-              </Button>
+              <MetaInfo
+                count={commentsCount}
+                Icon={() => <MessageCircleMore />}
+              />
             </Link>
           </div>
         )}

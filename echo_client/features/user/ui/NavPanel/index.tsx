@@ -1,3 +1,4 @@
+import { ModeToggle } from "@/components/modeToggler";
 import {
   Tooltip,
   TooltipContent,
@@ -64,6 +65,7 @@ export function NavPanel() {
         </TooltipProvider>
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
+        <ModeToggle />
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>

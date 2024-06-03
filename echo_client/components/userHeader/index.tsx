@@ -29,8 +29,8 @@ export const UserHeader = ({
         </Avatar>
       </Link>
       <div>
-        <p>{name}</p>
-        <p>{authorDate && formatToClientDate(authorDate) }</p>
+        <p className="font-semibold leading-none">{name}</p>
+        <p className="text-xs text-slate-500">4444{authorDate && formatToClientDate(authorDate) }</p>
       </div>
     </div>
   );

@@ -20,11 +20,11 @@ import { useCreatePostMutation, useLazyGetAllPostsQuery } from "@/lib/servicies/
 const FormSchema = z.object({
   post: z
     .string()
-    .min(10, {
-      message: "Post must be at least 10 characters.",
+    .min(1, {
+      message: "Пост не должен быть пустым.",
     })
-    .max(160, {
-      message: "Post must not be longer than 30 characters.",
+    .max(120, {
+      message: "Пост не должен быть длинее 120 символов.",
     }),
 })
 
@@ -39,7 +39,7 @@ export function CreatePostForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
       await createPost({content: data.post }).unwrap()
-      // setValue('post', '')
+      form.setValue('post', '')
       await triggerGetAllPosts().unwrap()
     } catch(error) {
       console.log('create post error', error)
@@ -48,22 +48,21 @@ export function CreatePostForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="post"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Начните писать свою хуиту уже сегодня</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Tell us a little bit about yourself"
+                  placeholder="Расскажите немного о себе"
                   className="resize-none"
                   {...field}
                 />
               </FormControl>
               <FormDescription>
-                You can <span>@mention</span> other users and organizations.
+                
               </FormDescription>
               <FormMessage />
             </FormItem>

@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectCurrent } from "@/features/user/userSlice";
 import Image from "next/image";
 import Link from "next/link";
+import { Mail } from "lucide-react";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -24,18 +25,24 @@ export function FeedCard({ className, ...props }: CardProps) {
   const { name, email, avatarUrl, id } = current;
 
   return (
-    <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader>
+    <Card className={cn("hidden md:block", className)} {...props}>
+      <CardHeader className="p-4 xl:p-6">
         <Image
+          className="rounded-md"
           src={`${process.env.NEXT_PUBLIC_BASE_URL}${avatarUrl}`}
           width={370}
           height={370}
           alt="Avatar"
         />
       </CardHeader>
-      <CardContent className="grid gap-4">
-        <Link href={`/user/${id}`}>{name}</Link>
-        <p className="text-default-500 flex items-center gap-2">{email}</p>
+      <CardContent className="grid gap-2 p-4 xl:p-6 pt-0 xl:pt-0">
+        <Link href={`/user/${id}`}>
+          <Button className="w-full" variant="outline">Войти в профиль</Button>
+        </Link>
+        <p>{name}</p>
+        <p className="flex items-center gap-2">
+          <Mail /> {email}
+        </p>
       </CardContent>
     </Card>
   );
