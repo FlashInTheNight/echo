@@ -117,7 +117,7 @@ export function PostCard({
           router.push("/");
           break;
         case "comment":
-          await deleteComment(commentId).unwrap();
+          await deleteComment({ commentId }).unwrap();
           await refetchPosts();
           break;
         default:

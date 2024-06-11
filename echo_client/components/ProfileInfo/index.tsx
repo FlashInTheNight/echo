@@ -13,7 +13,7 @@ export const ProfileInfo: React.FC<Props> = ({
   }
 
   return (
-    <p className="font-semibold">
+    <p className="text-sm mt-2 font-semibold">
       <span className="text-gray-500 mr-2">{title}</span>{info}
     </p>
   )

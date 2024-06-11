@@ -15,7 +15,7 @@ export function UserCard({
   avatarUrl = "",
 }: Props) {
   return (
-    <div className={cn("w-[380px]", className)}>
+    <div className={cn("", className)}>
       <Avatar>
         <AvatarImage src={`${process.env.NEXT_PUBLIC_BASE_URL}${avatarUrl}`} />
         <AvatarFallback>CN</AvatarFallback>

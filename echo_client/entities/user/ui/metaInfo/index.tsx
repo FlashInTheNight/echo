@@ -14,13 +14,5 @@ export const MetaInfo: React.FC<Props> = ({ count, Icon }) => {
         <p className="font-semibold ml-1 text-default-400 text-l">{count}</p>
       )}
     </Button>
-    // <div className="flex items-center gap-2 cursor-pointer">
-    //   {count > 0 && (
-    //     <p className="font-semibold text-default-400 text-l">{count}</p>
-    //   )}
-    //   <p className="text-default-400 text-xl hover:scale-105 hover:text-2xl ease-in duration-100">
-    //     <Icon />
-    //   </p>
-    // </div>
   );
 };

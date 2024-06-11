@@ -4,6 +4,8 @@ import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import { AuthGuard } from "@/features/user/authGuard";
 import { ThemeProvider } from "./ThemeProvider";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +25,9 @@ export default function RootLayout({
         <body className={inter.className}>
           <AuthGuard>
             <ThemeProvider attribute="class" defaultTheme="light">
-              {children}
+              <Suspense fallback={<Loading />}>
+                {children}
+              </Suspense>
             </ThemeProvider>
           </AuthGuard>
         </body>

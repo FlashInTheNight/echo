@@ -33,6 +33,7 @@ export function FeedCard({ className, ...props }: CardProps) {
           width={370}
           height={370}
           alt="Avatar"
+          priority
         />
       </CardHeader>
       <CardContent className="grid gap-2 p-4 xl:p-6 pt-0 xl:pt-0">

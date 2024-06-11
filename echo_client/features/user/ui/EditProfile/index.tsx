@@ -109,15 +109,10 @@ export function EditProfile({ user }: Props) {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button variant="outline">Edit Profile</Button>
+        <Button className="w-full" variant="outline">Редактировать профиль</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account.
-          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -148,13 +143,6 @@ export function EditProfile({ user }: Props) {
                 );
               }}
             />
-            {/* <FormInput
-              control={form.control}
-              name="file"
-              label="Avatar"
-              type="file"
-              onChange={handleFileChange}
-            /> */}
             <FormInput
               control={form.control}
               name="dateOfBirth"
@@ -185,7 +173,7 @@ export function EditProfile({ user }: Props) {
               label="Location"
               placeholder={"Earth"}
             />
-            <Button type="submit">Обновить профиль</Button>
+            <Button className="mt-4" type="submit">Обновить профиль</Button>
           </form>
         </Form>
       </DialogContent>

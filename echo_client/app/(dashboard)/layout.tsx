@@ -1,49 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import {
-  ChevronLeft,
-  Home,
-  LineChart,
-  MessageSquareText,
-  Package,
-  Package2,
-  PanelLeft,
-  PlusCircle,
-  Search,
-  Settings,
-  ShoppingCart,
-  SquareUserRound,
-  Upload,
-  Users,
-  Users2,
-} from "lucide-react";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/breadcrumb";
-import { Button } from "@/components/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/dropdown-menu";
-import { Input } from "@/components/input";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/sheet";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider,
-} from "@/components/tooltip";
+import { Toaster } from "@/components/toast/toaster";
 import { NavPanel } from "@/features/user/ui/NavPanel";
-import { ModeToggle } from "@/components/modeToggler";
 import { DashboardHeader } from "@/widgets/dashboard-header/ui";
 
 export default function DashboardLayout({
@@ -58,6 +14,7 @@ export default function DashboardLayout({
         <DashboardHeader />
         <main className="grid container flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
           {children}
+          <Toaster />
         </main>
       </div>
     </div>

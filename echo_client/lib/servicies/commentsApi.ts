@@ -4,15 +4,16 @@ export const commentsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     createComment: builder.mutation<Comment, { content: string, postId: string }>({
       query: (newComment) => ({
-        url: "/comments",
+        url: "/comments/create",
         method: "POST",
         body: newComment,
       }),
     }),
-    deleteComment: builder.mutation<void, string>({
+    deleteComment: builder.mutation<void, { commentId: string }>({
       query: (commentId) => ({
-        url: `/comments/${commentId}`,
+        url: `/comments/delete`,
         method: "DELETE",
+        body: commentId,
       }),
     }),
   }),

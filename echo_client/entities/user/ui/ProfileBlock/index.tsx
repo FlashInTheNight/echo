@@ -7,6 +7,8 @@ import {
   CardTitle,
 } from "@/components/card";
 import { CountInfo } from "@/components/countInfo";
+import { ProfileInfo } from "@/components/ProfileInfo";
+import { formatToClientDate } from "@/utils/format-to-client-date";
 
 type Props = {
   email: string;
@@ -17,9 +19,6 @@ type Props = {
   following?: number;
 };
 
-import { ProfileInfo } from "@/components/ProfileInfo";
-import { formatToClientDate } from "@/utils/format-to-client-date";
-
 export default function ProfileBlock({
   email = "",
   location = "",
@@ -29,7 +28,7 @@ export default function ProfileBlock({
   following = 0,
 }: Props) {
   return (
-    <Card>
+    <Card className="max-w-80 lg:max-w-none lg:w-full xl:max-w-[74ch]">
       <CardContent>
         <ProfileInfo title="Почта:" info={email} />
         <ProfileInfo title="Местоположение:" info={location} />
@@ -39,8 +38,7 @@ export default function ProfileBlock({
         />
         <ProfileInfo title="Обо мне:" info={bio} />
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
+      <CardFooter className="justify-between lg:justify-start">
         <CountInfo count={followers} title="Подписчики" />
         <CountInfo count={following} title="Подписки" />
       </CardFooter>

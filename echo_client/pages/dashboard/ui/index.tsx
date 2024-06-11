@@ -1,18 +1,27 @@
 "use client";
 import { FeedCard } from "@/entities/user/ui/FeedCard";
-import { useSelector } from "react-redux";
-import { selectIsAuthenticated, selectUser } from "@/features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  logout,
+  selectCurrent,
+  selectIsAuthenticated,
+  selectUser,
+} from "@/features/user/userSlice";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { CreatePostForm } from "@/features/user/ui/CreatePostForm";
 import { useGetAllPostsQuery } from "@/lib/servicies/postsApi";
 import { PostCard } from "@/entities/user/ui/PostCard";
+import Link from "next/link";
 
 export function DashboardPage() {
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const router = useRouter();
+  const current = useSelector(selectCurrent);
   const { data } = useGetAllPostsQuery();
+  const router = useRouter();
+
+  const { id } = current ?? {};
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -20,12 +29,12 @@ export function DashboardPage() {
     }
   }, []);
 
+  if (!current) return null;
   return (
     <div className="mx-auto w-full grid max-w-[59rem] flex-1 auto-rows-max gap-4">
       <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
         {/* first block */}
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-          {/* обернуть в отдельный компонент */}
           <div className="grid w-full gap-2">
             <CreatePostForm />
           </div>
@@ -60,7 +69,7 @@ export function DashboardPage() {
         </div>
         {/* second block */}
         <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-          {!user && <FeedCard />}
+          <FeedCard />
         </div>
       </div>
     </div>

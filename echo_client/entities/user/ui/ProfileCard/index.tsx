@@ -24,21 +24,23 @@ type Props = {
   isFollowing: boolean;
 };
 
-export function ProfileCard({ className, ...props }: CardProps) {
+
+
+export function ProfileCard({ className, ...props }: CardProps & Props) {
 
   return (
     <Card className={cn("w-[380px]", className)} {...props}>
       <CardHeader>
-        <Image
+        {/* <Image
           src={`${process.env.NEXT_PUBLIC_BASE_URL}${avatarUrl}`}
           width={370}
           height={370}
           alt="Avatar"
-        />
+        /> */}
       </CardHeader>
       <CardContent className="grid gap-4">
-        <Link href={`/user/${id}`}>{name}</Link>
-        <p className="text-default-500 flex items-center gap-2">{email}</p>
+        <Link href={`/user/${props.id}`}>{props.name}</Link>
+        <p className="text-default-500 flex items-center gap-2">{props.name}</p>
       </CardContent>
     </Card>
   );
