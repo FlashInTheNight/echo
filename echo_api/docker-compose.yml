@@ -1,0 +1,27 @@
+version: '3' # версия синтаксиса
+services:
+  echo-app:
+    # Сервер NestJS
+    build: .
+    ports:
+      - '3001:3001'
+    depends_on:
+      - db
+      - next-app
+    environment:
+      DATABASE_URL: 'mongodb://user:pass@db:27017/mydatabase?authSource=admin&directConnection=true'
+  db:
+    # База данных
+    image: prismagraphql/mongo-single-replica:5.0.3
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: user
+      MONGO_INITDB_ROOT_PASSWORD: pass
+  next-app:
+    # Контейнер для Next.js
+    build: ../echo_client
+    ports:
+      - '3000:3000'
+volumes:
+  echo_app: # Объявление именованного тома
